@@ -1,0 +1,16 @@
+## Week 7 — Issue selection
+
+**Issue link:** https://github.com/ascherj/pathreview/issues/90
+
+**Issue title:** Add integration tests for authentication edge cases
+
+**Tier:** [ ] Tier 1  [x] Tier 2  [ ] Tier 3
+
+**Problem summary:**
+The auth middleware only has tests for the happy path — a valid token. There are no tests covering what happens when someone sends an expired token, a malformed one, a token signed with the wrong secret, or no Authorization header at all. These are exactly the cases that matter for security, since real attackers won't be sending valid tokens. The fix is adding integration tests to the existing test_auth_middleware.py file that cover each of these four edge cases and confirm the middleware rejects them correctly.
+
+**Branch name:** test/90-auth-middleware-edge-cases
+
+**Setup confirmation:** [x] App runs locally at localhost:5173
+
+**Cohort ledger:** [ ] Issue added to cohort ledger
