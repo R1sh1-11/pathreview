@@ -17,14 +17,12 @@ The auth middleware only has tests for the happy path — a valid token. There a
 
 ## Week 8 — Reproduction & solution planning
 
-**Reproduction commit link:** [to be added after commit]
+**Reproduction commit link:** https://github.com/R1sh1-11/pathreview/commit/681dca4
 
 **Reproduction summary:**
 Confirmed `tests/integration/test_auth_middleware.py` does not exist in the repo — the issue is a gap in test coverage, not a broken behavior. Added a new test file with 4 failing/pending integration tests that document exactly what's missing: expired token, malformed token, missing header, and wrong-secret token all need to return 401.
 
 **PLAN.md link:** [https://github.com/R1sh1-11/pathreview/blob/test/90-auth-middleware-edge-cases/PLAN.md](https://github.com/R1sh1-11/pathreview/blob/test/90-auth-middleware-edge-cases/PLAN.md)
-
-**Walkthrough video (recommended):** N/A
 
 **Blockers or open questions:**
 The test client may trigger the app lifespan and require Docker/Postgres to be running during test execution. Need to confirm whether tests need a live DB or if the DB dependency can be mocked out for pure auth middleware testing.
