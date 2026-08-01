@@ -39,3 +39,21 @@ Get peer or mentor feedback on the draft PR in Slack, then address anything that
 
 **Blockers:**
 None right now.
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** https://github.com/ascherj/pathreview/pull/524
+
+**Branch:** test/90-auth-middleware-edge-cases
+
+**What you built:**
+Added integration tests for the auth middleware covering the four edge cases it was missing: expired tokens, malformed tokens, missing Authorization header, and tokens signed with the wrong secret. All four now correctly return 401.
+
+**Tests added or updated:**
+tests/integration/test_auth_middleware.py, 4 new tests. Each one hits the protected GET /profiles/{profile_id} route with a differently broken token and asserts a 401 response.
+
+**Self-review confirmation:** [x] make check passes  [x] make test-unit passes
+
+**Draft PR feedback received from:** none, could not locate the course Slack in time
