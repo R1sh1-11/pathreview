@@ -26,3 +26,16 @@ Confirmed `tests/integration/test_auth_middleware.py` does not exist in the repo
 
 **Blockers or open questions:**
 The test client may trigger the app lifespan and require Docker/Postgres to be running during test execution. Need to confirm whether tests need a live DB or if the DB dependency can be mocked out for pure auth middleware testing.
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+All 4 sub-tasks from PLAN.md are done. The test file covers expired tokens, malformed tokens, missing Authorization header, and wrong-secret tokens, and all 4 pass locally. Also caught and fixed a bug in my own plan, PLAN.md originally pointed at `GET /profiles`, which does not exist, so I switched the tests to hit `GET /profiles/{profile_id}` instead since it uses the same auth dependency.
+
+**Next steps:**
+Get peer or mentor feedback on the draft PR in Slack, then address anything that comes up before marking it ready for review.
+
+**Blockers:**
+None right now.
