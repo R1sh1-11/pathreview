@@ -21,7 +21,7 @@ Files involved:
 5. Write a test for **wrong-secret tokens** by using `jose.jwt.encode` directly with a hardcoded fake secret, sending that token, and asserting a 401 response.
 
 ### Inputs & outputs
-- **Input:** HTTP requests to `GET /profiles` (a protected route) with various malformed or missing auth headers
+- **Input:** HTTP requests to `GET /profiles/{profile_id}` (a protected route) with various malformed or missing auth headers
 - **Output:** Each test asserts the response status code is `401 Unauthorized`
 - **What changes:** One new file — `tests/integration/test_auth_middleware.py` — goes from not existing to containing 4 passing integration tests
 
