@@ -57,3 +57,34 @@ tests/integration/test_auth_middleware.py, 4 new tests. Each one hits the protec
 **Self-review confirmation:** [x] make check passes  [x] make test-unit passes
 
 **Draft PR feedback received from:** none, could not locate the course Slack in time
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+No reviewer feedback came in. Per the course note, reviewer feedback wasn't a feature this summer cohort. I also wasn't able to locate the course Slack in time to get peer feedback on the draft PR before finalizing it.
+
+**How you responded:**
+N/A, no feedback arrived to respond to.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+Getting the app running locally took way longer than actually writing the tests. I hit a bug where three different model files (profile.py, review.py, ingested_source.py) each defined the same database index twice, once inline with index=True and once again in __table_args__. Postgres refused to create the same index twice on every single startup, so the whole app crashed before I could even claim the issue. I had to trace through SQLAlchemy error output, find the exact duplicate lines with grep, and delete them one file at a time. On top of that, WSL, Docker permissions, git authentication with GitHub's token requirements, and npm/vite all broke in sequence. None of that was mentioned in SETUP.md, and I probably spent more hours untangling environment issues than writing the actual test code.
+
+**What did you learn about working in a large codebase?**
+You can't read a whole codebase before touching it, you have to trace one thread at a time. For issue #90, I started from the exact file the issue named, found it didn't exist yet, then worked backward to the middleware it was supposed to test (api/middleware/auth.py), then to the security functions it called (core/security.py), then to where that middleware was actually used in real routes. I also learned that assumptions in a plan can be wrong. My PLAN.md said to test GET /profiles, but that route doesn't exist, only POST, GET by id, PUT, and DELETE do. My first test run failed with a 405 instead of 401, which told me I was hitting the wrong endpoint entirely. I had to grep the actual router decorators to find a real protected route before the tests could work.
+
+**How did AI tools help — and where did they fall short?**
+AI was most useful for pattern recognition, spotting that the same index bug existed in three separate files once I found it in one, and for writing boilerplate test scaffolding (the async httpx client setup) that I would have had to look up from scratch otherwise. Where it fell short was that I noticed I was leaning on it to think for me rather than with me. I was pasting error logs and running whatever command came back without always understanding why first. Partway through the module I made a point of slowing down and asking more why questions instead of just copying commands, especially once I got into git auth and merge conflict resolution, since those are skills I'll need without AI in the room.
+
+**What would you do differently if you started over?**
+I'd read the SETUP.md troubleshooting section completely before touching anything, since most of my early environment pain (docker-compose vs docker compose syntax, the Windows port 5433 note, the .env copy step) was already documented there and I found it after the fact. I'd also run my tests immediately after writing them instead of writing all four fixtures and functions first, since the actual bug (wrong route) would have surfaced on the first test instead of after I thought I was basically done.
+
+**What are you most proud of from this module?**
+Finding and fixing the duplicate index bug before I could even start the assigned issue. It wasn't part of issue #90 at all, it was a completely separate problem blocking local setup for probably every student who forked the repo after that bug was introduced. Tracing three separate SQLAlchemy stack traces back to the same root cause across three different model files, without anyone telling me what was wrong, felt like the first real debugging I did this module that wasn't just following instructions.
